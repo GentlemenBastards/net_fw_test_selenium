@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using eCom.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using eCom;
-using eCom.Controllers;
+using System.Web.Mvc;
 
 namespace eCom.Tests.Controllers
 {
