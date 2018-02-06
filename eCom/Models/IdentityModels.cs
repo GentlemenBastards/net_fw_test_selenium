@@ -29,5 +29,7 @@ namespace eCom.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<eCom.Models.Genre> Genres { get; set; }
     }
 }
