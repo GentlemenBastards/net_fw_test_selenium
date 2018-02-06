@@ -1,8 +1,7 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace eCom.Models
 {
@@ -31,5 +30,6 @@ namespace eCom.Models
         }
 
         public System.Data.Entity.DbSet<eCom.Models.Genre> Genres { get; set; }
+        public System.Data.Entity.DbSet<eCom.Models.Status> Statuses { get; set; }
     }
 }
