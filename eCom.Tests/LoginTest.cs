@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-
 using OpenQA.Selenium.Firefox;
 using Xunit;
 
@@ -12,7 +11,7 @@ namespace eCom.Tests
         {
             using (IWebDriver driver = new FirefoxDriver())
             {
-                driver.Manage().Window.Maximize();
+                //driver.Manage().Window.Maximize();
 
                 driver.Navigate().GoToUrl("http://localhost:53973/");
 
@@ -25,7 +24,7 @@ namespace eCom.Tests
         {
             using (IWebDriver driver = new FirefoxDriver())
             {
-                driver.Manage().Window.Maximize();
+                //driver.Manage().Window.Maximize();
 
                 driver.Navigate().GoToUrl("http://localhost:53973/Account/Login");
 
@@ -41,6 +40,5 @@ namespace eCom.Tests
                 //Assert.Equal("Home Page - My ASP.NET Application", driver.Title);
             }
         }
-
     }
 }

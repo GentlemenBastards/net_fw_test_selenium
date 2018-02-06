@@ -31,5 +31,6 @@ namespace eCom.Models
 
         public System.Data.Entity.DbSet<eCom.Models.Genre> Genres { get; set; }
         public System.Data.Entity.DbSet<eCom.Models.Status> Statuses { get; set; }
+        public System.Data.Entity.DbSet<eCom.Models.Supplier> Suppliers { get; set; }
     }
 }
