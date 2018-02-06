@@ -16,10 +16,6 @@ namespace eCom.Tests
 
                 driver.Navigate().GoToUrl("http://localhost:53973/");
 
-                //                IWebElement applicationButton = driver.FindElement(By.Id("startApplication"));
-
-                //                applicationButton.Click();
-
                 Assert.Equal("Home Page - My ASP.NET Application", driver.Title);
             }
         }
@@ -31,18 +27,18 @@ namespace eCom.Tests
             {
                 driver.Manage().Window.Maximize();
 
-                driver.Navigate().GoToUrl("http://localhost:53973/Home/StartLoanApplication");
+                driver.Navigate().GoToUrl("http://localhost:53973/Account/Login");
 
-                IWebElement firstNameInput = driver.FindElement(By.Id("FirstName"));
-                firstNameInput.SendKeys("Sarah");
+                IWebElement firstNameInput = driver.FindElement(By.Id("Email"));
+                firstNameInput.SendKeys("Fredrik@Olsson.com");
 
-                driver.FindElement(By.Id("LastName")).SendKeys("Smith");
+                driver.FindElement(By.Id("Password")).SendKeys("Blabla");
+
+                driver.FindElement(By.XPath("//*[@type='submit'][@value='Log in']")).Click();
+                //driver.FindElement(input[@name='action') and @value=' Search ']).Click();
 
 
-                driver.FindElement(By.Id("Loan")).Click();
-
-
-                driver.FindElement(By.Name("TermsAcceptance")).Click();
+                //Assert.Equal("Home Page - My ASP.NET Application", driver.Title);
             }
         }
 
