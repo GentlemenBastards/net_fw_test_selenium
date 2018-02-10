@@ -1,113 +1,125 @@
-﻿using eCom.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using eCom.Models;
 
 namespace eCom.Controllers
 {
-    //[Authorize]
-    public class GenresController : Controller
+    public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Genres
+        // GET: Products
         public ActionResult Index()
         {
-            return View(db.Genres.ToList());
+            var products = db.Products.Include(p => p.Genre).Include(p => p.Supplier);
+            return View(products.ToList());
         }
 
-        // GET: Genres/Details/5
+        // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = db.Genres.Find(id);
-            if (genre == null)
+            Product product = db.Products.Find(id);
+            if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(genre);
+            return View(product);
         }
 
-        // GET: Genres/Create
+        // GET: Products/Create
         public ActionResult Create()
         {
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name");
             return View();
         }
 
-        // POST: Genres/Create
+        // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Genre genre)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,GenreId,SupplierId")] Product product)
         {
             if (ModelState.IsValid)
             {
-                db.Genres.Add(genre);
+                db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(genre);
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", product.GenreId);
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", product.SupplierId);
+            return View(product);
         }
 
-        // GET: Genres/Edit/5
+        // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = db.Genres.Find(id);
-            if (genre == null)
+            Product product = db.Products.Find(id);
+            if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(genre);
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", product.GenreId);
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", product.SupplierId);
+            return View(product);
         }
 
-        // POST: Genres/Edit/5
+        // POST: Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Genre genre)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,GenreId,SupplierId")] Product product)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(genre).State = EntityState.Modified;
+                db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(genre);
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", product.GenreId);
+            ViewBag.SupplierId = new SelectList(db.Suppliers, "Id", "Name", product.SupplierId);
+            return View(product);
         }
 
-        // GET: Genres/Delete/5
+        // GET: Products/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = db.Genres.Find(id);
-            if (genre == null)
+            Product product = db.Products.Find(id);
+            if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(genre);
+            return View(product);
         }
 
-        // POST: Genres/Delete/5
+        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Genre genre = db.Genres.Find(id);
-            db.Genres.Remove(genre);
+            Product product = db.Products.Find(id);
+            db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
